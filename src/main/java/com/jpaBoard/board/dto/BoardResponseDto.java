@@ -1,5 +1,6 @@
-package com.jpaBoard.board.entity;
+package com.jpaBoard.board.dto;
 
+import com.jpaBoard.board.entity.Board;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

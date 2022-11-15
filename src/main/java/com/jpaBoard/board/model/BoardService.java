@@ -3,7 +3,7 @@ package com.jpaBoard.board.model;
 import com.jpaBoard.board.dto.BoardRequestDto;
 import com.jpaBoard.board.entity.Board;
 import com.jpaBoard.board.entity.BoardRepository;
-import com.jpaBoard.board.entity.BoardResponseDto;
+import com.jpaBoard.board.dto.BoardResponseDto;
 import com.jpaBoard.exception.CustomException;
 import com.jpaBoard.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +21,10 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     // 게시글 생성
-    @Transactional // 각각의 실행, 조ㅓㅇ료, 예외를 자동으로 처리한다.
+    @Transactional // 각각의 실행, 종료, 예외를 자동으로 처리한다.
     public Long save(final BoardRequestDto params) {
         Board entity = boardRepository.save(params.toEntity());
         return entity.getId();
-    }
-
-    // 게시글 리스트 조회
-    public List<BoardResponseDto> findAll() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
-        List<Board> list = boardRepository.findAll(sort);
-        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
     // 게시글 수정
@@ -41,4 +34,28 @@ public class BoardService {
         entity.update(params.getTitle(), params.getContent(), params.getWriter());
         return id;
     }
+
+    // 게시글 삭제
+    @Transactional
+    public Long delete(final Long id) {
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.delete();
+        return id;
+    }
+
+    // 게시글 리스트 조회
+    public List<BoardResponseDto> findAll() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        List<Board> list = boardRepository.findAll(sort);
+        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 게시글 상세정보 조회
+    @Transactional
+    public BoardResponseDto findById(final Long id) {
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        entity.increaseHits();
+        return new BoardResponseDto(entity);
+    }
+
 }
