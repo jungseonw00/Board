@@ -20,6 +20,8 @@ public class BoardTests {
     void save() {
 
         // 1. 게시글 파라미터 생성
+        // 생성자로 객체를 생성했을 경우
+        // Board params = new Board("1번 게시글 제목", "1번 게시글 내용", "정선우", 0, "N");
         Board params = Board.builder()
                 .title("1번 게시글 제목")
                 .content("1번 게시글 내용")

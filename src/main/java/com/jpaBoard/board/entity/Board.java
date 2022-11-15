@@ -12,11 +12,14 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 해당 클래스의 기본 생성자를 생성해 준다. (access 속성을 이용하여 동일 패키지에서만 객체를 생성할 수 있도록 설정)
-@Entity // 해당 클래스가 테이블과 매핑되는 JPA의 엔티티 클래스임을 의미함
+// 해당 클래스의 기본 생성자를 생성해 준다. (access 속성을 이용하여 동일 패키지에서만 객체를 생성할 수 있도록 설정)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+// 해당 클래스가 테이블과 매핑되는 JPA의 엔티티 클래스임을 의미함
+@Entity
 public class Board {
 
-    @Id // PK 설정
+    // PK 설정
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private Long id;        // PK
     private String title;   // 제목
@@ -34,5 +37,12 @@ public class Board {
         this.writer = writer;
         this.hits = hits;
         this.deleteYn = deleteYn;
+    }
+
+    public void update(String title, String content, String writer) {
+        this.title = title;
+        this.content = content;
+        this.writer = writer;
+        this.modifiedDate = LocalDateTime.now();
     }
 }

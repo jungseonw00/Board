@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 /**
- * 예외 응답을 처리할 Response Class
+ * 예외 응답을 처리할 Response 클래스
  */
 @Getter
 public class ErrorResponse {

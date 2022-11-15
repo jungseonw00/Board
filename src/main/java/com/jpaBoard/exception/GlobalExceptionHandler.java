@@ -44,12 +44,4 @@ public class GlobalExceptionHandler {
                 .status(ErrorCode.INTERNAL_SERVER_ERROR.getStatus().value())
                 .body(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR));
     }
-    /*
-        // @ExceptionHandler는 특정 클래스에서 발생할 수 있는 예외를 잡아 Throw 해준다.
-        @ExceptionHandler(RuntimeException.class)
-        public String handleRuntimeException(final RuntimeException e) {
-            log.error("handleRuntimeException : {}" , e.getMessage());
-            return e.getMessage();
-        }
-    */
 }
