@@ -1,7 +1,7 @@
-package com.jpaBoard.board;
+package com.study.board;
 
-import com.jpaBoard.board.entity.Board;
-import com.jpaBoard.board.entity.BoardRepository;
+import com.study.board.entity.Board;
+import com.study.board.entity.BoardRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

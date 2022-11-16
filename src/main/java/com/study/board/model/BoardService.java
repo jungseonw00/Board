@@ -1,17 +1,23 @@
-package com.jpaBoard.board.model;
+package com.study.board.model;
 
-import com.jpaBoard.board.dto.BoardRequestDto;
-import com.jpaBoard.board.entity.Board;
-import com.jpaBoard.board.entity.BoardRepository;
-import com.jpaBoard.board.dto.BoardResponseDto;
-import com.jpaBoard.exception.CustomException;
-import com.jpaBoard.exception.ErrorCode;
+import com.study.board.dto.BoardRequestDto;
+import com.study.board.entity.Board;
+import com.study.board.entity.BoardRepository;
+import com.study.board.dto.BoardResponseDto;
+import com.study.exception.CustomException;
+import com.study.exception.ErrorCode;
+import com.study.paging.CommonParams;
+import com.study.paging.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +25,7 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final BoardMapper boardMapper;
 
     // 게시글 생성
     @Transactional // 각각의 실행, 종료, 예외를 자동으로 처리한다.
@@ -45,8 +52,15 @@ public class BoardService {
 
     // 게시글 리스트 조회
     public List<BoardResponseDto> findAll() {
-        Sort sort = Sort.by(Sort.Direction.DESC, "id", "createdDate");
+        Sort sort = Sort.by(Direction.DESC, "id", "createdDate");
         List<Board> list = boardRepository.findAll(sort);
+        return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
+    }
+
+    // 게시글 리스트 조회 - (삭제 여부 기준)
+    public List<BoardResponseDto> findAllByDeleteYn(final char deleteYn) {
+        Sort sort = Sort.by(Direction.DESC, "id", "createdDate");
+        List<Board> list = boardRepository.findAllByDeleteYn(deleteYn, sort);
         return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
 
@@ -58,4 +72,29 @@ public class BoardService {
         return new BoardResponseDto(entity);
     }
 
+    // 게시글 리스트 조회 (With, pagination information)
+    public Map<String, Object> findAll(CommonParams params) {
+
+        // 게시글 수 조회
+        int count = boardMapper.count(params);
+
+        // 등록된 게시글이 없는 경우, 로직 종료
+        if (count < 1) {
+            return Collections.emptyMap();
+        }
+
+        // 페이지네이션 정보 계산
+        Pagination pagination = new Pagination(count, params);
+        params.setPagination(pagination);
+
+        // 게시글 리스트 조회
+        List<BoardResponseDto> list = boardMapper.findAll(params);
+
+        // 데이터 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("params", params);
+        response.put("list", list);
+
+        return response;
+    }
 }

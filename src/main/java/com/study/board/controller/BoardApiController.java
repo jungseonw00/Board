@@ -1,14 +1,14 @@
-package com.jpaBoard.board.controller;
+package com.study.board.controller;
 
-import com.jpaBoard.board.dto.BoardRequestDto;
-import com.jpaBoard.board.dto.BoardResponseDto;
-import com.jpaBoard.board.model.BoardService;
-import com.jpaBoard.exception.CustomException;
-import com.jpaBoard.exception.ErrorCode;
+import com.study.board.dto.BoardRequestDto;
+import com.study.board.dto.BoardResponseDto;
+import com.study.board.model.BoardService;
+import com.study.paging.CommonParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -25,7 +25,7 @@ public class BoardApiController {
 
     // 게시글 수정
     @PatchMapping("/boards/{id}")
-    public Long save(@PathVariable final Long id, @RequestBody final BoardRequestDto params) {
+    public Long update(@PathVariable final Long id, @RequestBody final BoardRequestDto params) {
         return boardService.update(id, params);
     }
 
@@ -37,10 +37,11 @@ public class BoardApiController {
 
     // 게시글 리스트 조회
     @GetMapping("/boards")
-    public List<BoardResponseDto> findAll() {
-        return boardService.findAll();
+    public Map<String, Object> findAll(final CommonParams params) {
+        return boardService.findAll(params);
     }
 
+    // 게시글 상세정보 조회
     @GetMapping("/boards/{id}")
     public BoardResponseDto findById(@PathVariable final Long id) {
         return boardService.findById(id);

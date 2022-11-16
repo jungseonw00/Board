@@ -1,4 +1,4 @@
-package com.jpaBoard.exception;
+package com.study.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

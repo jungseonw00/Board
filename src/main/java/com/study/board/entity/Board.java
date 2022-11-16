@@ -1,4 +1,4 @@
-package com.jpaBoard.board.entity;
+package com.study.board.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,6 +49,9 @@ public class Board {
         this.modifiedDate = LocalDateTime.now();
     }
 
+    /**
+     * 조회 수 증가
+     */
     public void increaseHits() {
         this.hits++;
     }

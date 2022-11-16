@@ -1,6 +1,6 @@
-package com.jpaBoard.board.dto;
+package com.study.board.dto;
 
-import com.jpaBoard.board.entity.Board;
+import com.study.board.entity.Board;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

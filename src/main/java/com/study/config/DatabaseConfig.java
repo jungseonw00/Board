@@ -1,8 +1,8 @@
-package com.jpaBoard.config;
+package com.study.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import org.apache.ibatis.session.SqlSession;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,10 +19,10 @@ import javax.sql.DataSource;
 @Configuration
 // 해당 클래스에서 참조할 properties 파일의 위치를 지정한다.
 @PropertySource("classpath:/application.properties")
+@RequiredArgsConstructor
 public class DatabaseConfig {
 
-    @Autowired
-    private ApplicationContext context;
+    private final ApplicationContext context;
 
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari") // 접두사가 spring.datasource.hikari로 시작하는 설정을 모두 매핑(바인딩)한다.
@@ -39,6 +39,7 @@ public class DatabaseConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
+        factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
         return factoryBean.getObject();
     }
 
@@ -46,5 +47,4 @@ public class DatabaseConfig {
     public SqlSessionTemplate sqlSession() throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory());
     }
-
 }

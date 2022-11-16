@@ -1,6 +1,5 @@
-package com.jpaBoard.board.controller;
+package com.study.board.controller;
 
-import groovy.util.logging.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +16,6 @@ public class BoardPageController {
      */
     @GetMapping("/list")
     public String openBoardList() {
-        System.out.println("BoardPageController.openBoardList");
         return "board/list";
     }
 
@@ -26,7 +24,7 @@ public class BoardPageController {
      */
     @GetMapping("/write")
     public String openBoardWrite(@RequestParam(required = false) final Long id, Model model) {
-        System.out.println("BoardPageController.openBoardWrite");
+        model.addAttribute("id", id);
         return "board/write";
     }
 
@@ -35,6 +33,7 @@ public class BoardPageController {
      */
     @GetMapping("/view/{id}")
     public String openBoardView(@PathVariable final Long id, Model model) {
+        System.out.println("BoardPageController.openBoardView");
         model.addAttribute("id", id);
         return "board/view";
     }
