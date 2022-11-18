@@ -27,8 +27,9 @@
             </div>
 
             <div class="btn_wrap text-center">
-                <a th:href="@{/board/list}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
-                <button type="button" onclick="save()"; class="btn btn-primary waves-effect waves-light">저장하기</button>
+                <a href="javascript: void(0)" onclick="goList();"
+                   class="btn btn-default waves-effect waves-light">뒤로가기</a>
+                <button type="button" onclick="save()" ; class="btn btn-primary waves-effect waves-light">저장하기</button>
             </div>
         </form>
     </div>
@@ -38,6 +39,40 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         /*<![CDATA[*/
+
+        window.onload = () => {
+            findBoard();
+        }
+
+        /**
+         * 게시글 조회
+         */
+        function findBoard() {
+
+            const id = /*[[ ${id} ]]*/;
+
+            if (!id) {
+                return false;
+            }
+
+            fetch(`/api/boards/${id}`).then(response => {
+                if (!response.ok) {
+                    throw new Error('Request failed...');
+                }
+                return response.json();
+
+            }).then(json => {
+                const form = document.getElementById('form');
+                form.title.value = json.title;
+                form.content.value = json.content;
+                form.writer.value = json.writer;
+
+            }).catch(error => {
+                alert('게시글 정보를 찾을 수 없습니다.');
+                location.href = '/board/list';
+            });
+        }
+
         /**
          * 유효성 검사
          */
@@ -87,8 +122,8 @@
             };
 
             const id = /*[[ ${id} ]]*/;
-            const uri = ( id ) ? `/api/boards/${id}` : '/api/boards';
-            const method = ( id ) ? 'PATCH' : 'POST';
+            const uri = (id) ? `/api/boards/${id}` : '/api/boards';
+            const method = (id) ? 'PATCH' : 'POST';
 
             fetch('/api/boards', {
                 method: 'POST',
@@ -103,11 +138,19 @@
                 }
 
                 alert('저장되었습니다.');
-                location.href = '/board/list';
+                goList();
 
             }).catch(error => {
                 alert('오류가 발생하였습니다.');
             });
+        }
+
+        /**
+         * 뒤로가기
+         */
+        function goList() {
+            const id = /*[[${id}]]*/;
+            location.href = (id) ? '/board/list' + location.search : '/board/list';
         }
 
         /*]]>*/

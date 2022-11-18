@@ -60,8 +60,11 @@
     	 */
     	window.onload = () => {
 
-    		findAll(1);
-    		addEnterSearchEvent();
+            setQueryStringParams();
+
+    		findAll();
+
+            addEnterSearchEvent();
     	}
 
     	/**
@@ -101,6 +104,9 @@
     	 */
     	function findAll(page) {
 
+            const pageParam = Number(new URLSearchParams(location.search).get('page'));
+            page = (page) ? page : ((pageParam) ? pageParam : 1);
+
     		const form = document.getElementById('searchForm');
     		const params = {
     			  page: page
@@ -109,6 +115,11 @@
     			, searchType: form.searchType.value
     			, keyword: form.keyword.value
     		}
+
+            // 비동기 페이징 및 검색
+            const queryString = new URLSearchParams(params).toString();
+            const replaceUri = location.pathname + '?' + queryString;
+            history.replaceState({}, '', replaceUri);
 
     		getJson('/api/boards', params).then(response => {
     			if (!Object.keys(response).length) {
@@ -121,11 +132,12 @@
     			let num = response.params.pagination.totalRecordCount - ((response.params.page - 1) * response.params.recordPerPage);
 
            		response.list.forEach((obj, idx) => {
+                    const viewUri = `/board/view/${obj.id}` + '?' + queryString;
            			html += `
            				<tr>
       						<td>${num--}</td>
       						<td class="text-left">
-      							<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+      							<a href="${viewUri}">${obj.title}</a>
       						</td>
       						<td>${obj.writer}</td>
       						<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
@@ -162,8 +174,16 @@
      		// 첫 페이지, 이전 페이지
      		if (pagination.existPrevPage) {
      			html += `
-     				<li><a href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a></li>
+     				<li>
+     				    <a href="javascript:void(0)" onclick="findAll(1);" aria-label="Previous">
+     				        <span aria-hidden="true">&laquo;</span>
+     				    </a>
+     				</li>
+     				<li>
+     				    <a href="javascript:void(0)" onclick="findAll(${pagination.startPage - 1});" aria-label="Previous">
+     				        <span aria-hidden="true">&lsaquo;</span>
+     				    </a>
+     				</li>
      			`;
      		}
 
@@ -176,13 +196,39 @@
      		// 다음 페이지, 마지막 페이지
      		if (pagination.existNextPage) {
      			html += `
-     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a></li>
-     				<li><a href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+     				<li>
+     				    <a href="javascript:void(0)" onclick="findAll(${pagination.endPage + 1});" aria-label="Next">
+     				        <span aria-hidden="true">&rsaquo;</span>
+     				    </a>
+     				</li>
+     				<li>
+     				    <a href="javascript:void(0)" onclick="findAll(${pagination.totalPageCount});" aria-label="Next">
+     				        <span aria-hidden="true">&raquo;</span>
+     				    </a>
+     				</li>
      			`;
      		}
 
      		document.querySelector('.pagination').innerHTML = html;
      	}
+
+        /**
+         * 쿼리 스트링 파라미터 셋팅
+         */
+        function setQueryStringParams() {
+
+            if ( !location.search ) {
+                return false;
+            }
+
+            const form = document.getElementById('searchForm');
+
+            new URLSearchParams(location.search).forEach((value, key) => {
+                if (form[key]) {
+                    form[key].value = value;
+                }
+            });
+        }
 
     /*]]>*/
     </script>
