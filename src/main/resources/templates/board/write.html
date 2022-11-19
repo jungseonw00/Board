@@ -30,6 +30,7 @@
                 <a href="javascript: void(0)" onclick="goList();"
                    class="btn btn-default waves-effect waves-light">뒤로가기</a>
                 <button type="button" onclick="save()" ; class="btn btn-primary waves-effect waves-light">저장하기</button>
+                <button type="button" onclick="test()" ; class="btn btn-primary waves-effect waves-light">TEST</button>
             </div>
         </form>
     </div>
@@ -151,6 +152,46 @@
         function goList() {
             const id = /*[[${id}]]*/;
             location.href = (id) ? '/board/list' + location.search : '/board/list';
+        }
+
+        /**
+         * TEST
+         */
+        function test() {
+
+            if (!isValid()) {
+                return false;
+            }
+
+            const form = document.getElementById('form');
+            const params = {
+                title: form.title.value,
+                writer: form.writer.value,
+                content: form.content.value,
+                deleteYn: 'N'
+            };
+            const id = /*[[ ${id} ]]*/;
+            const uri = (id) ? `/api/boards/${id}` : '/api/boards';
+            const method = (id) ? 'PATCH' : 'POST';
+
+            fetch('/api/boards/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(params)
+
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Request failed...');
+                }
+
+                alert('저장되었습니다.');
+                goList();
+
+            }).catch(error => {
+                alert('오류가 발생하였습니다.');
+            });
         }
 
         /*]]>*/

@@ -1,5 +1,6 @@
 package com.study.board.controller;
 
+import com.study.board.dto.Board;
 import com.study.board.dto.BoardRequestDto;
 import com.study.board.dto.BoardResponseDto;
 import com.study.board.model.BoardService;
@@ -61,5 +62,13 @@ public class BoardApiController {
     public String test() {
         System.out.println("BoardApiController.test");
         throw new CustomException(ErrorCode.POSTS_NOT_FOUND);
+    }
+
+    @PostMapping("/boards/test")
+    public String test(@RequestBody final Board params) {
+        log.info("test method Start...");
+        log.info("params = {} ", params.toString());
+
+        return "ok";
     }
 }

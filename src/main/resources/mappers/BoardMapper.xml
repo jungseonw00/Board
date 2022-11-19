@@ -83,4 +83,15 @@
         ORDER BY ID DESC
         LIMIT 1
     </select>
+
+    <!-- 작성한 게시글이 100개가 맞는지 확인한다. -->
+    <select id="selectBoardCount" parameterType="com.study.board.entity.Board" resultType="int">
+        select count(*)
+          from board
+         where title = #{title}
+           and content = #{content}
+           and writer = #{writer}
+           and delete_yn = #{deleteYn}
+           and hits = 0
+    </select>
 </mapper>

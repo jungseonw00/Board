@@ -17,4 +17,6 @@ public interface BoardMapper {
     List<BoardResponseDto> findAll(final CommonParams params);
 
     Board findTopContent();
+
+    int selectBoardCount(Board board);
 }

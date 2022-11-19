@@ -62,4 +62,5 @@ public class Board {
     public void delete() {
         this.deleteYn = 'Y';
     }
+
 }

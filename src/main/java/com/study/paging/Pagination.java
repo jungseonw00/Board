@@ -23,6 +23,7 @@ public class Pagination {
     private void calculation(CommonParams params) {
 
         // 전체 페이지 수 계산
+        // 전체 페이지 수 = 전체 데이터 수 - 1 / 페이지당 출력할 데이터 + 1
         totalPageCount = ((totalRecordCount - 1) / params.getRecordPerPage()) + 1;
 
         // 현재 페이지 번호가 전체 페이지 수보다 큰 경우, 현재 페이지 번호에 전체 페이지 수 저장

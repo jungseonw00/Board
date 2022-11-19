@@ -106,6 +106,12 @@
     	function findAll(page) {
 
             const pageParam = Number(new URLSearchParams(location.search).get('page'));
+            console.log("pageParam = " + pageParam);
+
+            /**
+             *  page가 true이면 page : ((pageParam)
+             *  page가 false이면 pageParam : 1
+             */
             page = (page) ? page : ((pageParam) ? pageParam : 1);
 
     		const form = document.getElementById('searchForm');
@@ -218,7 +224,7 @@
          */
         function setQueryStringParams() {
 
-            // 파라미터가 있는지 확인한다.
+            // 파라미터가 있는지 확인한다. 없다면 false로 function 종료
             if ( !location.search ) {
                 return false;
             }
