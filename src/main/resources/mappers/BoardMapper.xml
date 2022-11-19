@@ -76,4 +76,11 @@
         LIMIT #{pagination.limitStart}, #{recordPerPage}
     </select>
 
+    <!-- 최싱단 ROW 검색 -->
+    <select id="findTopContent" resultType="com.study.board.entity.Board">
+        SELECT *
+        FROM BOARD
+        ORDER BY ID DESC
+        LIMIT 1
+    </select>
 </mapper>

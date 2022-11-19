@@ -22,19 +22,23 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class DatabaseConfig {
 
+    // 스프링 컨테이너이다. Bean의 생성과 사용, 관계, 생명 주기 등을 관리합니다.
     private final ApplicationContext context;
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.hikari") // 접두사가 spring.datasource.hikari로 시작하는 설정을 모두 매핑(바인딩)한다.
+    // @PropertySource에 저장된 파일에서 접두사가 spring.datasource.hikari로 시작하는 설정을 모두 매핑(바인딩)한다.
+    @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {
         return new HikariConfig();
     }
 
+    // 커넥션 풀을 지원하기 위한 인터페이스이다.
     @Bean
     public DataSource dataSource() {
         return new HikariDataSource(hikariConfig());
     }
 
+    // 마이바티스와 스프링의 연동 모듈로 사용된다.
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();

@@ -2,6 +2,7 @@ package com.study.board;
 
 import com.study.board.entity.Board;
 import com.study.board.entity.BoardRepository;
+import com.study.board.model.BoardMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,12 +14,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class BoardTests {
 
+    // 스프링 컨테이너에 등록된 BoardRepository 객체를 주입받는다.
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    BoardMapper boardMapper;
+
     @Test
     void save() {
-
         // 1. 게시글 파라미터 생성
         // 생성자로 객체를 생성했을 경우
         // Board params = new Board("1번 게시글 제목", "1번 게시글 내용", "정선우", 0, "N");
@@ -34,7 +38,12 @@ public class BoardTests {
         boardRepository.save(params);
 
         // 3. 1번 게시글 정보 조회
-        Board entity = boardRepository.findById((long) 1).get();
+        // Board entity = boardRepository.findById((long) 1).get();
+        // 최상단 ROW를 SELECT한다.
+        Board entity = boardMapper.findTopContent();
+        System.out.println("entity.getTitle() => " + entity.getTitle());
+        System.out.println("entity.getContent() => " + entity.getContent());
+
         assertThat(entity.getTitle()).isEqualTo("1번 게시글 제목");
         assertThat(entity.getContent()).isEqualTo("1번 게시글 내용");
         assertThat(entity.getWriter()).isEqualTo("정선우");

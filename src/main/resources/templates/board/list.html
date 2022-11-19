@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- 아래의 코드가 layout.html을 불러와준다. -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 
@@ -217,6 +218,7 @@
          */
         function setQueryStringParams() {
 
+            // 파라미터가 있는지 확인한다.
             if ( !location.search ) {
                 return false;
             }

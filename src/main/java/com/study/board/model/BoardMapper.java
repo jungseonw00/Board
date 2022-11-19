@@ -1,6 +1,7 @@
 package com.study.board.model;
 
 import com.study.board.dto.BoardResponseDto;
+import com.study.board.entity.Board;
 import com.study.paging.CommonParams;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,4 +15,6 @@ public interface BoardMapper {
 
     // 게시글 리스트 조회
     List<BoardResponseDto> findAll(final CommonParams params);
+
+    Board findTopContent();
 }

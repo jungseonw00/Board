@@ -97,4 +97,10 @@ public class BoardService {
 
         return response;
     }
+
+    // 최상단 게시글 가져오기
+    public Board findTopContent() {
+        Board board = boardMapper.findTopContent();
+        return board;
+    }
 }
