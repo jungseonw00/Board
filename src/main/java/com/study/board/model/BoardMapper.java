@@ -19,4 +19,6 @@ public interface BoardMapper {
     Board findTopContent();
 
     int selectBoardCount(Board board);
+
+    void insertBoard(Board board);
 }

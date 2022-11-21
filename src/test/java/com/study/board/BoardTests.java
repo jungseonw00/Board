@@ -77,18 +77,6 @@ public class BoardTests {
          * build를 for문 안에 넣으니 100번의 insert가 성공하였음. why?
          * 그러나 객체를 100번 만들기 때문에 메모리 낭비가 심하다.
          */
-        for (int i = 0; i < 100; i++) {
-            Board params = Board.builder()
-                    .title("1번 게시글 제목")
-                    .content("1번 게시글 내용")
-                    .writer("정선우")
-                    .hits(0)
-                    .deleteYn('N')
-                    .build();
-            System.out.println(params);
-            boardRepository.save(params);
-        }
-
         Board params = Board.builder()
                 .title("1번 게시글 제목")
                 .content("1번 게시글 내용")
@@ -96,6 +84,15 @@ public class BoardTests {
                 .hits(0)
                 .deleteYn('N')
                 .build();
+
+        for (int i = 0; i < 100; i++) {
+            boardMapper.insertBoard(params);
+            /**
+             *
+             */
+            // boardRepository.save(params);
+        }
+
         int result = boardMapper.selectBoardCount(params);
         assertThat(result).isEqualTo(100);
 
