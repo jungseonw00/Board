@@ -1,5 +1,6 @@
 package com.study;
 
+import com.study.JasyptConfig.JasyptTest;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ class BoardApplicationTests {
 
 	@Autowired
 	private SqlSessionFactory sessionFactory;
+
+	@Autowired
+	private JasyptTest jasyptTest;
 
 	@Test
 	void contextLoads() {
@@ -39,6 +43,11 @@ class BoardApplicationTests {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Test
+	void jasyptTest() {
+		System.out.println("jasyptTest.getPropertiesTestValue() => " + jasyptTest.getPropertiesTestValue());
 	}
 
 }
