@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class LoggerInterceptor implements HandlerInterceptor {
 
-    @Override
+    /*@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.debug("===============================================");
         log.debug("==================== BEGIN ====================");
@@ -23,5 +23,5 @@ public class LoggerInterceptor implements HandlerInterceptor {
         log.debug("==================== END ======================");
         log.debug("===============================================");
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
-    }
+    }*/
 }

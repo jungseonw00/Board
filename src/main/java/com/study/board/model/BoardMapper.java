@@ -21,4 +21,5 @@ public interface BoardMapper {
     int selectBoardCount(Board board);
 
     void insertBoard(Board board);
+
 }
