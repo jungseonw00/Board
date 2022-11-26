@@ -29,7 +29,7 @@ public class HomePageController {
         int result = userService.selectUserId(params);
         // 로그인 정보가 있을경우
         if (result > 0) {
-            userService.selectUser(params);
+            // userService.selectUser(params);
         // 로그인 정보가 없을경우
         } else {
             return "home/fail";

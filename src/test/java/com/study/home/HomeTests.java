@@ -23,10 +23,10 @@ public class HomeTests {
                 .userId("seonwoojung")
                 .password("1234")
                 .name("정선우")
-                .email("laborlawseon@gamil.com")
-                .phone("010-4000-1278")
-                .address("경기도 고양시 덕양구 원흥 1로 35")
-                .detailAddress("1305 - 103")
+                .email("")
+                .phone("")
+                .address("")
+                .detailAddress("")
                 .build();
 
         // 2. DB에 VO값을 insert를 한다.
