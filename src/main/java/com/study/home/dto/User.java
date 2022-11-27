@@ -1,14 +1,13 @@
 package com.study.home.dto;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@Slf4j
 public class User {
 
     private String userId;
@@ -34,18 +33,5 @@ public class User {
                 ", deleteAt=" + deleteAt +
                 ", createdDate=" + createdDate +
                 '}';
-    }
-
-    @Builder
-    public User(String userId, String password, String name, String email, String phone, String address, String detailAddress, char deleteAt, LocalDateTime createdDate) {
-        this.userId = userId;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.address = address;
-        this.detailAddress = detailAddress;
-        this.deleteAt = deleteAt;
-        this.createdDate = createdDate;
     }
 }

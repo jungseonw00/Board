@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.study.home.model.UserMapper">
+
+    <!-- SELECT 결과 Map -->
+    <resultMap id="UserResultMap" type="com.study.home.dto.User">
+        <result property="userId" column="user_id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="address" column="address"/>
+        <result property="detailAddress" column="detail_address"/>
+        <result property="deleteAt" column="delete_at"/>
+        <result property="createdDate" column="created_date"/>
+    </resultMap>
 
     <insert id="insertUserInfo" parameterType="com.study.home.dto.User">
         INSERT INTO USER
@@ -48,6 +60,8 @@
              , CREATED_DATE
         FROM USER
         WHERE DELETE_AT = 'N'
+        AND USER_ID = #{userId}
+        AND PASSWORD = #{password}
     </select>
 
 </mapper>
