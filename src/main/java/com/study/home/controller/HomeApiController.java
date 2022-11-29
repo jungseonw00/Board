@@ -12,11 +12,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/home")
 @RequiredArgsConstructor
 @Slf4j
 public class HomeApiController {
 
     private final UserService userService;
 
+    @PostMapping("duplicateId")
+    public String duplicateId(@RequestBody String userId) {
+        User vo = new User();
+        vo.setUserId(userId);
+        int result = userService.selectUserId(vo);
+        log.info("result = " + result);
+        if (result > 0) {
+            return "duplicate";
+        } else {
+            return "ok";
+        }
+    }
 }

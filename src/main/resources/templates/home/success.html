@@ -3,7 +3,6 @@
       layout:decorate="~{layout}">
 <th:block layout:fragment="script"></th:block>
 <th:block layout:fragment="content">
-    login success!
-    <h1 th:text="${user}"></h1>
+    <h1 th:text="|${user.name}님 환영합니다^^!|">인사말</h1>
 </th:block>
 </html>

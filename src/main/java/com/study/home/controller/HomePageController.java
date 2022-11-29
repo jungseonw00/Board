@@ -4,14 +4,12 @@ import com.study.home.dto.User;
 import com.study.home.model.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 @Slf4j
 @Controller
@@ -30,13 +28,9 @@ public class HomePageController {
     // 로그인
     @PostMapping("/")
     public String login(HttpSession session, Model model, User params) {
-        log.info("login method() start...");
-        log.info("params first = " + params);
         // 로그인 검증
         int result = userService.selectUserId(params);
         if (result > 0) {
-            log.info("로그인 성공");
-            log.info("user = " + userService.selectUser(params));
             session.setAttribute("user", userService.selectUser(params));
             model.addAttribute("user", session.getAttribute("user"));
             return "home/success";
@@ -44,7 +38,25 @@ public class HomePageController {
             log.info("로그인 실패");
             return "home/fail";
         }
+    }
 
+    // 회원가입
+    @GetMapping("/createUser")
+    public String createUser() {
+        return "home/createForm";
+    }
 
+    @PostMapping("/createUser")
+    public String createNewUser(Model model, User params) {
+        int result = userService.insertUser(params);
+        log.info("result ==================> " + result);
+        // 가입이 완료 됬을 때
+        if (result > 0) {
+            return "redirect:/";
+            // 가입에 실패했을 때
+        } else {
+            model.addAttribute("fail", "fail");
+            return "";
+        }
     }
 }

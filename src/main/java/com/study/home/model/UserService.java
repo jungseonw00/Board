@@ -17,12 +17,16 @@ public class UserService {
 
     @Transactional
     public int selectUserId(User params) {
-        int result = userMapper.selectUserId(params);
-        return result;
+        return userMapper.selectUserId(params);
     }
 
     @Transactional
     public User selectUser(User params) {
         return userMapper.selectUser(params);
+    }
+
+    @Transactional
+    public int insertUser(User params) {
+        return userMapper.insertUser(params);
     }
 }
