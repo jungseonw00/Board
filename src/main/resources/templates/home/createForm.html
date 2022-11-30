@@ -3,6 +3,19 @@
       layout:decorate="~{layout}">
 <th:block layout:fragment="script">
     <script>
+
+    $(document).ready(function() {
+        const option = `width = 500,
+                        height = 500,
+                        top = 100,
+                        left = 200,
+                        location = no`;
+
+        $('#address').click(function() {
+            adresPopup();
+        });
+    });
+
     function btnDuplicate() {
 
         $.ajax({
@@ -89,8 +102,17 @@
             form.detailAddress.focus();
             return false;
         }
+        return true;
+    }
 
-        go;
+    function adresPopup() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+                $('#address').val(data.address);
+            }
+        }).open();
     }
     </script>
 </th:block>
@@ -103,23 +125,24 @@
 
 </script>
 <th:block layout:fragment="content">
-  <form action="" method="post" id="form">
-    <div style="text-align: center">회원가입 Form</div><br>
-                                                        <!-- form안에 button 기능이 필요하면 type="button"을 사용하기. -->
-    <b>id: </b><input type="text" name="userId" id="userId"><button type="button" onclick="btnDuplicate();">중복확인</button><br>
-    <b>password: </b><input type="password" name="password" id="password"><br>
-    <b>name : </b><input type="text" name="name" id="name"><br>
-    <b>phone: </b><select name="phone" class="phone" id="phone1">
-                    <option value="011">011</option>
-                    <option value="010">010</option>
-                    <option value="016">016</option>
-                    <option value="017">017</option>
-                  </select>
-           -       <input type="text" name="phone2" class="phone" id="phone2"> - <input type="text" name="phone3" class="phone" id="phone3"><br>
-    <b>email: </b><input type="text" name="email" id="email"><br>
-    <b>address: </b><input type="text" name="address" id="address"><br>
-    <b>detail_address: </b><input type="text" name="detailAddress" id="detailAddress"><br>
-    <button type="button" onclick="isValid2()">회원가입</button>
+                                          <!-- 유효성 검사 -->
+  <form action="" method="post" id="form" onsubmit="return isValid2();">
+        <div style="text-align: center">회원가입 Form</div><br>
+                                                            <!-- form안에 button 기능이 필요하면 type="button"을 사용하기. -->
+        <b>id: </b><input type="text" name="userId" id="userId"><button type="button" onclick="btnDuplicate();">중복확인</button><br>
+        <b>password: </b><input type="password" name="password" id="password"><br>
+        <b>name : </b><input type="text" name="name" id="name"><br>
+        <b>phone: </b><select name="phone" class="phone" id="phone1">
+                        <option value="011">011</option>
+                        <option value="010">010</option>
+                        <option value="016">016</option>
+                        <option value="017">017</option>
+                      </select>
+               -       <input type="text" name="phone2" class="phone" id="phone2"> - <input type="text" name="phone3" class="phone" id="phone3"><br>
+        <b>email: </b><input type="text" name="email" id="email"><br>
+        <b>address: </b><input type="text" name="address" id="address"><br>
+        <b>detail_address: </b><input type="text" name="detailAddress" id="detailAddress"><br>
+        <button type="submit">회원가입</button>
   </form>
 </th:block>
 </html>

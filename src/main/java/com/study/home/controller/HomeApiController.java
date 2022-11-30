@@ -18,11 +18,9 @@ public class HomeApiController {
 
     private final UserService userService;
 
-    @PostMapping("duplicateId")
-    public String duplicateId(@RequestBody String userId) {
-        User vo = new User();
-        vo.setUserId(userId);
-        int result = userService.selectUserId(vo);
+    @PostMapping("/duplicateId")
+    public String duplicateId(@RequestBody User params) {
+        int result = userService.selectUserId(params);
         log.info("result = " + result);
         if (result > 0) {
             return "duplicate";

@@ -13,4 +13,6 @@ public interface UserMapper {
     User selectUser(User user);
 
     int insertUser(User params);
+
+    int selectCountUser(String params);
 }

@@ -55,27 +55,25 @@
 
     <insert id="insertUser" parameterType="com.study.home.dto.User">
         INSERT INTO USER (
-                          user_id,
-                          password,
-                          name,
-                          email,
-                          phone,
-                          address,
-                          detail_address,
-                          delete_at,
-                          created_date
-                          ) values (
-                                    #{userId},
-                                    #{password},
-                                    #{name},
-                                    #{email},
-                                    #{phone},
-                                    #{address},
-                                    #{detailAddress},
-                                    'N',
-                                    #{createdDate}
-                                    )
+        user_id,
+        password,
+        name,
+        email,
+        phone,
+        address,
+        detail_address,
+        delete_at,
+        created_date
+        ) values (
+        #{userId},
+        #{password},
+        #{name},
+        #{email},
+        #{phone},
+        #{address},
+        #{detailAddress},
+        'N',
+        #{createdDate}
+        )
     </insert>
-
-
 </mapper>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+                // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+            }
+        }).open();
+    </script>
+</th:block>
+<th:block layout:fragment="content">
+    <form action="" method="post" id="form">
+        ID: <input type="text" name="userId" class="form-control" placeholder="ID" style="width: 350px;"><br>
+        PW: <input type="password" name="password" class="form-control" placeholder="PASSWORD" style="width: 350px;">
+        <button type="submit" class="btn btn-primary waves-effect waves-light">로그인</button>
+        <a href="/createUser" class="btn btn-primary waves-effect waves-light">회원가입</a>
+    </form>
+</th:block>
+</html>

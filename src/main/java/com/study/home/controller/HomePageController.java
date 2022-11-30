@@ -48,6 +48,8 @@ public class HomePageController {
 
     @PostMapping("/createUser")
     public String createNewUser(Model model, User params) {
+        String phone = params.getPhone() + "-" + params.getPhone2() + "-" + params.getPhone3();
+        params.setPhone(phone);
         int result = userService.insertUser(params);
         log.info("result ==================> " + result);
         // 가입이 완료 됬을 때
@@ -58,5 +60,11 @@ public class HomePageController {
             model.addAttribute("fail", "fail");
             return "";
         }
+    }
+
+    @GetMapping("/adresPopup")
+    public String adresPopup() {
+        log.info("adresPopup Start...");
+        return "home/adresPopup";
     }
 }

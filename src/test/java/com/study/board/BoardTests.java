@@ -3,6 +3,7 @@ package com.study.board;
 import com.study.board.entity.Board;
 import com.study.board.entity.BoardRepository;
 import com.study.board.model.BoardMapper;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -95,8 +96,5 @@ public class BoardTests {
 
         int result = boardMapper.selectBoardCount(params);
         assertThat(result).isEqualTo(100);
-
     }
-
-
 }

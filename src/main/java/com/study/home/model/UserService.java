@@ -29,4 +29,9 @@ public class UserService {
     public int insertUser(User params) {
         return userMapper.insertUser(params);
     }
+
+    @Transactional
+    public int selectCountUser(String params) {
+        return userMapper.selectCountUser(params);
+    }
 }
