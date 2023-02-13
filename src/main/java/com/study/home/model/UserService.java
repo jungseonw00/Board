@@ -1,37 +1,28 @@
 package com.study.home.model;
 
-import com.study.home.dto.User;
+import com.study.home.dto.UserRequestDto;
+import com.study.home.entity.User;
+import com.study.home.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
 
-    private final UserMapper userMapper;
+    private final UserRepository userRepository;
 
     @Transactional
-    public int selectUserId(User params) {
-        return userMapper.selectUserId(params);
+    public int selectUserId(final UserRequestDto params) {
+        return userRepository.findByUserId(params.getUserId());
     }
 
     @Transactional
-    public User selectUser(User params) {
-        return userMapper.selectUser(params);
-    }
-
-    @Transactional
-    public int insertUser(User params) {
-        return userMapper.insertUser(params);
-    }
-
-    @Transactional
-    public int selectCountUser(String params) {
-        return userMapper.selectCountUser(params);
+    public Long saveUser(final UserRequestDto params) {
+        User entity = userRepository.save(params.toEntity());
+        return entity.getUserSeq();
     }
 }
