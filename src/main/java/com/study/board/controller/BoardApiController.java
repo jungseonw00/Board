@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,7 +48,7 @@ public class BoardApiController {
     // 게시글 리스트 조회
     @GetMapping("/boards")
     public Map<String, Object> findAll(final CommonParams params) {
-        return boardService.findAll(params);
+        return null;
     }
 
     // 게시글 상세정보 조회
