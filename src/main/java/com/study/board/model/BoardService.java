@@ -1,9 +1,9 @@
 package com.study.board.model;
 
 import com.study.board.dto.BoardRequestDto;
+import com.study.board.dto.BoardResponseDto;
 import com.study.board.entity.Board;
 import com.study.board.entity.BoardRepository;
-import com.study.board.dto.BoardResponseDto;
 import com.study.exception.CustomException;
 import com.study.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
