@@ -6,13 +6,9 @@ import com.study.board.dto.BoardResponseDto;
 import com.study.board.model.BoardService;
 import com.study.exception.CustomException;
 import com.study.exception.ErrorCode;
-import com.study.paging.CommonParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @RestController = @Controller + @ResponseBody
@@ -44,12 +40,6 @@ public class BoardApiController {
     @DeleteMapping("/boards/{id}")
     public Long delete(@PathVariable final Long id) {
         return boardService.delete(id);
-    }
-
-    // 게시글 리스트 조회
-    @GetMapping("/boards")
-    public Map<String, Object> findAll(final CommonParams params) {
-        return boardService.findAll(params);
     }
 
     // 게시글 상세정보 조회
