@@ -58,7 +58,6 @@ public class BoardApiController {
     public String test(@RequestBody final Board params) {
         log.info("test method Start...");
         log.info("params = {} ", params.toString());
-
         return "ok";
     }
 }
