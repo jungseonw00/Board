@@ -1,3 +1,3 @@
 # Board
-Spring JPA 게시판 만들기
-- Thymeleaf, mySQL, JPA, MyBatis
+직접 Spring JPA 게시판 만들기
+- Spring, JPA, Thymeleaf, MySQL
