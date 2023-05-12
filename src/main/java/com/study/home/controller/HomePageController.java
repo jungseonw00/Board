@@ -29,15 +29,7 @@ public class HomePageController {
     @PostMapping("/")
     public String login(HttpSession session, Model model, UserRequestDto params) {
         // 로그인 검증
-        int result = userService.selectUserId(params);
-        if (result > 0) {
-            // session.setAttribute("user", userService.selectUser(params));
-            model.addAttribute("user", session.getAttribute("user"));
-            return "home/success";
-        } else {
-            log.info("로그인 실패");
-            return "home/fail";
-        }
+        return "ok";
     }
 
     // 회원가입

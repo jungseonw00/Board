@@ -6,18 +6,13 @@ import com.study.board.entity.BoardRepository;
 import com.study.board.dto.BoardResponseDto;
 import com.study.exception.CustomException;
 import com.study.exception.ErrorCode;
-import com.study.paging.CommonParams;
-import com.study.paging.Pagination;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service

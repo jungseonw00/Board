@@ -3,6 +3,7 @@ package com.study.config;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -19,6 +20,7 @@ import javax.sql.DataSource;
 // 해당 클래스에서 참조할 properties 파일의 위치를 지정한다.
 @PropertySource("classpath:/application.properties")
 @RequiredArgsConstructor
+@Slf4j
 public class DatabaseConfig {
 
     // 스프링 컨테이너이다. Bean의 생성과 사용, 관계, 생명 주기 등을 관리합니다.
