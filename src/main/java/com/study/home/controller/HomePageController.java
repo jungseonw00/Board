@@ -1,6 +1,6 @@
 package com.study.home.controller;
 
-import com.study.home.dto.User;
+import com.study.home.dto.UserRequestDto;
 import com.study.home.model.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,11 +27,11 @@ public class HomePageController {
 
     // 로그인
     @PostMapping("/")
-    public String login(HttpSession session, Model model, User params) {
+    public String login(HttpSession session, Model model, UserRequestDto params) {
         // 로그인 검증
         int result = userService.selectUserId(params);
         if (result > 0) {
-            session.setAttribute("user", userService.selectUser(params));
+            // session.setAttribute("user", userService.selectUser(params));
             model.addAttribute("user", session.getAttribute("user"));
             return "home/success";
         } else {
@@ -46,25 +46,4 @@ public class HomePageController {
         return "home/createForm";
     }
 
-    @PostMapping("/createUser")
-    public String createNewUser(Model model, User params) {
-        String phone = params.getPhone() + "-" + params.getPhone2() + "-" + params.getPhone3();
-        params.setPhone(phone);
-        int result = userService.insertUser(params);
-        log.info("result ==================> " + result);
-        // 가입이 완료 됬을 때
-        if (result > 0) {
-            return "redirect:/";
-            // 가입에 실패했을 때
-        } else {
-            model.addAttribute("fail", "fail");
-            return "";
-        }
-    }
-
-    @GetMapping("/adresPopup")
-    public String adresPopup() {
-        log.info("adresPopup Start...");
-        return "home/adresPopup";
-    }
 }
